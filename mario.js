@@ -6,16 +6,17 @@ kaboom({
   clearColor: [0, 0, 0, 1]
 })
 
-let JUMP_SPEED = 350
-let PLAYER_SPEED = 150
-
 const MUSHROOM_SPEED = 17
 const ENEMY_SPEED = 25
 const DEATH_FALL = 800
 
+let JUMP_SPEED = 350
+let PLAYER_SPEED = 150
+
 let isJumping = true
 
 loadRoot('https://i.imgur.com/')
+
 loadSprite('mario', 'Wb1qfhK.png')
 loadSprite('flower', 'uaUm9sN.png')
 loadSprite('mushroom', '0wMd92p.png')
@@ -52,21 +53,20 @@ scene("game", ( { level, score }) => {
     '==============================    =============='
   ],
   [
-    '                                                 ',
-    '                                                 ',
-    '       ==0==?===                                 ',
-    '                                                 ',
-    '                                                 ',
-    '       =========                                 ',
-    '                                                 ',
-    '                                                 ',
-    '=====                                            ',
-    '                                                 ',
-    '                                              P  ',
-    '        $           ^                      ^     ',
+    '                                                ',
+    '                                                ',
+    '       ==0==?===                                ',
+    '                                                ',
+    '                                                ',
+    '       =========                                ',
+    '                                                ',
+    '                                                ',
+    '=====                                           ',
+    '                                                ',
+    '                                             P  ',
+    '        $           ^                    ^      ',
     '       ==================    ====================='
   ],
-
 ]
 
   const levelCfg = {
@@ -145,13 +145,6 @@ scene("game", ( { level, score }) => {
     origin('bot')
   ])
 
-  player.action(() => {
-    if(player.pos.y >= DEATH_FALL) {
-      camPos(player.pos)
-      go('lose', { score: scoreLabel.value })
-    }
-  })
-
   keyDown('right', function() {
     player.move(PLAYER_SPEED, 0)
   })
@@ -224,6 +217,13 @@ scene("game", ( { level, score }) => {
 
   action('enemy', (enemy) => {
     enemy.move(-1 * ENEMY_SPEED, 0)
+  })
+
+  player.action(() => {
+    if(player.pos.y >= DEATH_FALL) {
+      camPos(player.pos)
+      go('lose', { score: scoreLabel.value })
+    }
   })
 
   player.action(() => {
