@@ -17,7 +17,7 @@ let isJumping = true
 
 loadRoot('https://i.imgur.com/')
 
-loadSprite('mario', 'Wb1qfhK.png')
+loadSprite('mario', 'NpJDV9J.png')
 loadSprite('flower', 'uaUm9sN.png')
 loadSprite('mushroom', '0wMd92p.png')
 loadSprite('enemy', 'KPO3fR9.png')
@@ -119,14 +119,14 @@ scene("game", ( { level, score }) => {
         return isBig
       },
       makeSmall() {
-        this.scale = vec2(1)
+        this.scale = vec2(0.05)
         JUMP_SPEED = 350
         PLAYER_SPEED = 150
         timer = 0
         isBig = false
       },
       makeBig(time) {
-        this.scale = vec2(2)
+        this.scale = vec2(0.1)
         JUMP_SPEED = 450
         PLAYER_SPEED = 250
         timer = time
@@ -137,7 +137,7 @@ scene("game", ( { level, score }) => {
 
   const player = add([
     sprite('mario'),
-    scale(1.2), 
+    scale(0.05), 
     solid(), 
     pos(60, 0),
     body(),
