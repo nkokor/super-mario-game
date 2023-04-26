@@ -6,6 +6,9 @@ kaboom({
   clearColor: [0, 0, 0, 1]
 })
 
+const JUMP_SPEED = 350
+const MOVE_SPEED = 150
+
 loadRoot('https://i.imgur.com/')
 
 loadSprite('mario', 'Wb1qfhK.png')
@@ -56,6 +59,20 @@ scene("game", () => {
 
   const gameLevel = addLevel(map, levelCfg)
 
+  const scoreLabel = add([
+    text('test'),
+    pos(25, 30),
+    layer('ui'), 
+    {
+      value: 'test'
+    }
+  ])
+
+  add([
+    text('level ' + 'test'),
+    pos(25, 16)
+  ])
+
   const player = add([
     sprite('mario'),
     scale(1.2), 
@@ -64,6 +81,21 @@ scene("game", () => {
     body(),
     origin('bot')
   ])
+
+  keyDown('right', function() {
+    player.move(MOVE_SPEED, 0)
+  })
+
+  keyDown('left', function() {
+    player.move(-1 * MOVE_SPEED, 0)
+  })
+
+  keyPress('space', function() {
+    if(player.grounded()) {
+      player.jump(JUMP_SPEED)
+    }
+  })
+
 })
 
 start("game")
