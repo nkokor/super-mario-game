@@ -22,6 +22,7 @@ loadSprite('flower', 'uaUm9sN.png')
 loadSprite('mushroom', '0wMd92p.png')
 loadSprite('enemy', 'KPO3fR9.png')
 loadSprite('brick', 'pogC9x5.png')
+loadSprite('blue-brick', '3e5YRQd.png')
 loadSprite('block', 'M6rwarW.png')
 loadSprite('surprise', 'gesQ1KP.png')
 loadSprite('coin-surprise', 'gesQ1KP.png')
@@ -31,8 +32,9 @@ loadSprite('pipe-top-left', 'ReTPiWY.png')
 loadSprite('pipe-top-right', 'hj2GK4n.png')
 loadSprite('pipe-bottom-left', 'c1cYSbt.png')
 loadSprite('pipe-bottom-right', 'nqQ79eI.png')
-loadSprite('peach', 'Hg6ttP8.png')
+loadSprite('peach', 'U9uPPhu.png')
 loadSprite('happy-end', 'rmGzaBF.png')
+loadSprite('blue-ground', 'gqVoI2b.png')
 
 scene("game", ( { level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
@@ -46,26 +48,41 @@ scene("game", ( { level, score }) => {
     '                                                ',
     '                                  $             ',
     '                             ======             ',
-    '     #=        0=?=                      $      ',
+    '     #=        0=?=                    $        ',
     '                                                ',
-    '                                             <> ',
-    '           $         ^   ^                   () ',
+    '                                         <>     ',
+    '           $         ^   ^               ()     ',
     '==============================    =============='
+  ],
+  [
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                           <>   ',
+    '                                           ()   ',
+    '              $                     $    -----  ',
+    '           $  -               $    ---          ',
+    '        $  -  -              ---                ',
+    '        -  -  -         ^ ^                     ',
+    '---------------------------                     '
   ],
   [
     '                                                ',
     '                                                ',
     '       ==0==?===                                ',
     '                                                ',
-    '                                                ',
+    '         $                                      ',
     '       =========                                ',
     '                                                ',
     '                                                ',
     '=====                                           ',
     '                                                ',
-    '                                             P  ',
-    '        $           ^                    ^      ',
-    '       ==================    ====================='
+    '                                           P    ',
+    '        $           ^  $                 ^      ',
+    '       ==================    ==================='
   ],
 ]
 
@@ -84,7 +101,9 @@ scene("game", ( { level, score }) => {
     '0': [sprite('surprise'), solid(), 'mushroom-surprise'],
     '/': [sprite('unboxed'), solid()],
     '#': [sprite('surprise'), solid(), 'empty'],
-    'P': [sprite('peach'), solid(), scale(0.05), 'peach']
+    'P': [sprite('peach'), solid(), scale(0.07),'peach'],
+    '_': [sprite('blue-brick'), solid()],
+    '-': [sprite('brick'), solid()]
   }
 
   const gameLevel = addLevel(levelMaps[level - 1], levelCfg)
