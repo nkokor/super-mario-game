@@ -17,6 +17,8 @@ let isJumping = true
 
 loadRoot('https://i.imgur.com/')
 
+loadSprite('background', 'GaW0Jtr.png')
+
 loadSprite('mario', 'NpJDV9J.png')
 loadSprite('flower', 'uaUm9sN.png')
 loadSprite('mushroom', '0wMd92p.png')
@@ -34,12 +36,48 @@ loadSprite('pipe-bottom-left', 'c1cYSbt.png')
 loadSprite('pipe-bottom-right', 'nqQ79eI.png')
 loadSprite('peach', 'U9uPPhu.png')
 loadSprite('happy-end', 'rmGzaBF.png')
-loadSprite('blue-ground', 'gqVoI2b.png')
+loadSprite('blue-ground', 'fVscIbn.png')
+loadSprite('blue-enemy', 'SvV4ueD.png')
+loadSprite('blue-unboxed', 'RMqCc1G.png')
+loadSprite('blue-box', 'gqVoI2b.png')
+loadSprite('flower', 'uaUm9sN.png')
+loadSprite('castle', '7hkEkaD.png')
 
 scene("game", ( { level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
   const levelMaps = [
+    [
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '|                                               ',
+      '|                                         <>    ',
+      '|                                         ()    ',
+      '|      +  !  +  !                       _____   ',
+      '|                                    $          ',
+      '|        $                           +          ',
+      '|        +  +  +  +               $             ',
+      '|                                 +             ',
+      '|                              $                ',
+      '| ____                         +                ',
+      '|                           $                   ',
+      '|                           +                   ',
+      '|           "   "   "  $                        ',
+      '|       __________________                      ',
+      '|                                               ',
+      '|                                               ',
+      '|                                               ',
+      '|                                               ',
+      '|                                               ',
+      '|                                               ',
+      '|                                               '
+      
+    ],
   [
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
     '                                                ',
     '                                                ',
     '                                                ',
@@ -52,45 +90,48 @@ scene("game", ( { level, score }) => {
     '                                                ',
     '                                         <>     ',
     '           $         ^   ^               ()     ',
-    '==============================    =============='
+    '==============================    ==============',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                '
   ],
   [
     '                                                ',
     '                                                ',
     '                                                ',
     '                                                ',
+    '                                      X         ',
     '                                                ',
     '                                                ',
-    '                                           <>   ',
-    '                                           ()   ',
-    '              $                     $    -----  ',
-    '           $  -               $    ---          ',
-    '        $  -  -              ---                ',
-    '        -  -  -         ^ ^                     ',
-    '---------------------------                     '
-  ],
-  [
     '                                                ',
     '                                                ',
-    '       ==0==?===                                ',
     '                                                ',
-    '         $                                      ',
-    '       =========                                ',
+    '              $                         P       ',
+    '              -                                 ',
+    '           $  -                 $   ----------  ',
+    '           -  -            $   ---              ',
+    '        $  -  -           ---                   ',
+    '        -  -  -    ^  ^                         ',
+    '------------------------                        ',
     '                                                ',
     '                                                ',
-    '=====                                           ',
     '                                                ',
-    '                                           P    ',
-    '        $           ^  $                 ^      ',
-    '       ==================    ==================='
-  ],
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                '
+  ]
 ]
 
   const levelCfg = {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
-    '^': [sprite('enemy'), solid(), 'enemy'],
+    '^': [sprite('enemy'), solid()],
     '&': [sprite('mushroom'), solid(), 'mushroom', body()],
     '$': [sprite('coin'), solid(), 'coin'],
     '?': [sprite('surprise'), solid(), 'coin-surprise'],
@@ -101,10 +142,20 @@ scene("game", ( { level, score }) => {
     '0': [sprite('surprise'), solid(), 'mushroom-surprise'],
     '/': [sprite('unboxed'), solid()],
     '#': [sprite('surprise'), solid(), 'empty'],
-    'P': [sprite('peach'), solid(), scale(0.07),'peach'],
-    '_': [sprite('blue-brick'), solid()],
-    '-': [sprite('brick'), solid()]
+    'P': [sprite('peach'), solid(), scale(0.074),'peach'],
+    '_': [sprite('blue-ground'), solid(), scale(0.5)],
+    '-': [sprite('brick'), solid()],
+    '|': [sprite('blue-brick'), solid(), scale(0.8)],
+    '+': [sprite('blue-box'), solid(), scale(0.5)],
+    '!': [sprite('blue-unboxed'), solid(), scale(0.5), 'coin-surprise'],
+    '"': [sprite('blue-enemy'), solid(), scale(0.5)],
+    'X': [sprite('castle'), solid(), scale(0.45), 'castle']
   }
+
+  add([
+    sprite('background'),
+    scale(0.7)
+  ])
 
   const gameLevel = addLevel(levelMaps[level - 1], levelCfg)
 
@@ -156,7 +207,7 @@ scene("game", ( { level, score }) => {
 
   const player = add([
     sprite('mario'),
-    scale(0.05), 
+    scale(0.06), 
     solid(), 
     pos(60, 0),
     body(),
@@ -224,7 +275,7 @@ scene("game", ( { level, score }) => {
     }
   })
 
-  player.collides('peach', () => {
+  player.collides('castle', () => {
     go('win', {
       score: scoreLabel.value
     })
