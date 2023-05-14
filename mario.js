@@ -10,8 +10,8 @@ const MUSHROOM_SPEED = 17
 const ENEMY_SPEED = 25
 const DEATH_FALL = 800
 
-let JUMP_SPEED = 350
-let PLAYER_SPEED = 150
+let JUMP_SPEED = 330
+let PLAYER_SPEED = 130
 
 let isJumping = true
 
@@ -53,18 +53,18 @@ scene("game", ( { level, score }) => {
       '|                                               ',
       '|                                         <>    ',
       '|                                         ()    ',
-      '|      +  !  +  !                       _____   ',
+      '|                                       _____   ',
       '|                                    $          ',
-      '|        $                           +          ',
-      '|        +  +  +  +               $             ',
-      '|                                 +             ',
-      '|                              $                ',
-      '| ____                         +                ',
-      '|                           $                   ',
-      '|                           +                   ',
-      '|           "   "   "  $                        ',
-      '|       __________________                      ',
-      '|                                               ',
+      '|             _!_                    +          ',
+      '|                                  $            ',
+      '|                                  +            ',
+      '|                +               $              ',
+      '| ____          ++               +              ',
+      '|              +++             $                ',
+      '|             ++++             +                ',
+      '|            +++++   "  "                       ',
+      '|       ____________________                    ',
+      '|       ____________________                    ',
       '|                                               ',
       '|                                               ',
       '|                                               ',
@@ -86,12 +86,12 @@ scene("game", ( { level, score }) => {
     '                                                ',
     '                                  $             ',
     '                             ======             ',
-    '     #=        0=?=                    $        ',
+    '     #=        ?=0=                    $        ',
     '                                                ',
     '                                         <>     ',
     '           $         ^   ^               ()     ',
     '==============================    ==============',
-    '                                                ',
+    '==============================    ==============',
     '                                                ',
     '                                                ',
     '                                                ',
@@ -112,12 +112,12 @@ scene("game", ( { level, score }) => {
     '                                                ',
     '              $                         P       ',
     '              -                                 ',
-    '           $  -                 $   ----------  ',
+    '           $  -                 $   ----------- ',
     '           -  -            $   ---              ',
     '        $  -  -           ---                   ',
     '        -  -  -    ^  ^                         ',
     '------------------------                        ',
-    '                                                ',
+    '------------------------                        ',
     '                                                ',
     '                                                ',
     '                                                ',
@@ -131,7 +131,7 @@ scene("game", ( { level, score }) => {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
-    '^': [sprite('enemy'), solid()],
+    '^': [sprite('enemy'), solid(), body()],
     '&': [sprite('mushroom'), solid(), 'mushroom', body()],
     '$': [sprite('coin'), solid(), 'coin'],
     '?': [sprite('surprise'), solid(), 'coin-surprise'],
@@ -189,9 +189,9 @@ scene("game", ( { level, score }) => {
         return isBig
       },
       makeSmall() {
-        this.scale = vec2(0.05)
-        JUMP_SPEED = 350
-        PLAYER_SPEED = 150
+        this.scale = vec2(0.06)
+        JUMP_SPEED = 320
+        PLAYER_SPEED = 130
         timer = 0
         isBig = false
       },
