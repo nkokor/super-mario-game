@@ -164,7 +164,7 @@ scene("game", ( { level, score }) => {
     pos(25, 30),
     layer('ui'), 
     {
-      value: 0
+      value: score
     }
   ])
 
