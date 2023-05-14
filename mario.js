@@ -42,38 +42,12 @@ loadSprite('blue-unboxed', 'RMqCc1G.png')
 loadSprite('blue-box', 'gqVoI2b.png')
 loadSprite('flower', 'uaUm9sN.png')
 loadSprite('castle', '7hkEkaD.png')
+loadSprite('boss', 'Kxm84mC.png')
 
 scene("game", ( { level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
-  const levelMaps = [
-    [
-      '                                                ',
-      '                                                ',
-      '                                                ',
-      '|                                               ',
-      '|                                         <>    ',
-      '|                                         ()    ',
-      '|                                       _____   ',
-      '|                                    $          ',
-      '|             _!_                    +          ',
-      '|                                  $            ',
-      '|                                  +            ',
-      '|                +               $              ',
-      '| ____          ++               +              ',
-      '|              +++             $                ',
-      '|             ++++             +                ',
-      '|            +++++   "  "                       ',
-      '|       ____________________                    ',
-      '|       ____________________                    ',
-      '|                                               ',
-      '|                                               ',
-      '|                                               ',
-      '|                                               ',
-      '|                                               ',
-      '|                                               '
-      
-    ],
-  [
+  const levelMaps = [ 
+   ['                                                ',
     '                                                ',
     '                                                ',
     '                                                ',
@@ -82,22 +56,47 @@ scene("game", ( { level, score }) => {
     '                                                ',
     '                                                ',
     '                                                ',
-    '                                                ',
-    '                                                ',
-    '                                  $             ',
+    '               ?=0                              ',
+    '                             $ $$ $             ',
     '                             ======             ',
-    '     #=        ?=0=                    $        ',
-    '                                                ',
+    '     #=                                $        ',
+    '              =====                             ',
     '                                         <>     ',
-    '           $         ^   ^               ()     ',
-    '==============================    ==============',
-    '==============================    ==============',
+    '           $           ^ ^               ()     ',
+    '=============       ==========    ==============',
+    '=============       ==========    ==============',
     '                                                ',
     '                                                ',
     '                                                ',
     '                                                ',
     '                                                ',
     '                                                '
+  ],
+  [
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                                ',
+    '                                          <>    ',
+    '                                          ()    ',
+    '|||                                     _____   ',
+    '|||                                  $          ',
+    '|||           _!_                    +          ',
+    '|||                                $            ',
+    '|||                                +            ',
+    '|||              +               $              ',
+    '|||             ++               +              ',
+    '|||            +++             $                ',
+    '|||           ++++             +                ',
+    '|||          +++++   "  "                       ',
+    '|||     ____________________                    ',
+    '|||     ____________________                    ',
+    '|||                                             ',
+    '|||                                             ',
+    '|||                                             ',
+    '|||                                             ',
+    '|||                                             ',
+    '|||                                             '
   ],
   [
     '                                                ',
@@ -113,9 +112,9 @@ scene("game", ( { level, score }) => {
     '              $                         P       ',
     '              -                                 ',
     '           $  -                 $   ----------- ',
-    '           -  -            $   ---              ',
+    '           -  -    B       $   ---              ',
     '        $  -  -           ---                   ',
-    '        -  -  -    ^  ^                         ',
+    '        -  -  -                                 ',
     '------------------------                        ',
     '------------------------                        ',
     '                                                ',
@@ -131,7 +130,7 @@ scene("game", ( { level, score }) => {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
-    '^': [sprite('enemy'), solid(), body()],
+    '^': [sprite('enemy'), solid(), body(), 'enemy'],
     '&': [sprite('mushroom'), solid(), 'mushroom', body()],
     '$': [sprite('coin'), solid(), 'coin'],
     '?': [sprite('surprise'), solid(), 'coin-surprise'],
@@ -148,8 +147,9 @@ scene("game", ( { level, score }) => {
     '|': [sprite('blue-brick'), solid(), scale(0.8)],
     '+': [sprite('blue-box'), solid(), scale(0.5)],
     '!': [sprite('blue-unboxed'), solid(), scale(0.5), 'coin-surprise'],
-    '"': [sprite('blue-enemy'), solid(), scale(0.5)],
-    'X': [sprite('castle'), solid(), scale(0.45), 'castle']
+    '"': [sprite('blue-enemy'), solid(), scale(0.5), body(), 'enemy'],
+    'X': [sprite('castle'), solid(), scale(0.45), 'castle'],
+    'B': [sprite('boss'), solid(), scale(0.1077), 'boss', body()]
   }
 
   add([
@@ -266,6 +266,16 @@ scene("game", ( { level, score }) => {
     }
   })
 
+  player.collides('boss', (boss) => {
+    if(isJumping) {
+      destroy(boss)
+    } else {
+      go('lose', {
+        score: scoreLabel.value
+      })
+    }
+  })
+
   player.collides('pipe-hole', () => {
     if(isJumping) {
       go('game', { 
@@ -285,8 +295,10 @@ scene("game", ( { level, score }) => {
     mushroom.move(MUSHROOM_SPEED, 0)
   })
 
-  action('enemy', (enemy) => {
-    enemy.move(-1 * ENEMY_SPEED, 0)
+  action('boss', (boss) => {
+    if(boss.grounded()) {
+      boss.jump(150)
+    }
   })
 
   player.action(() => {
