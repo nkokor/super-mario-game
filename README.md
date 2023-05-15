@@ -10,7 +10,7 @@ Level1
 ![Screenshot](gameplay_screenshots/level1.jpg)
 Level2
 ![Screenshot](gameplay_screenshots/level2.jpg)
-Level3 (Currenty final level)
+Level3 
 ![Screenshot](gameplay_screenshots/level3.jpg)
 
 # Setup
