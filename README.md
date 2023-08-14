@@ -26,3 +26,7 @@ Kill the enemies by jumping on top of them and get special surprises by bumping 
 Eating mushrooms makes Mario grow, but it's only temporary.
 Sliding down the pipe leads you to the next level.
 
+# Credits
+
+The base for the game was created by coding along @kubowania's (https://www.github.com/kubowania)'s YouTube tutorial. You can find it here: https://youtu.be/2nucjefSr6I
+
