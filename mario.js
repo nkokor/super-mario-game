@@ -15,34 +15,33 @@ let PLAYER_SPEED = 130
 
 let isJumping = true
 
-loadRoot('https://i.imgur.com/')
+loadRoot('sprites/')
 
-loadSprite('background', 'GaW0Jtr.png')
+loadSprite('background', 'background.png')
 
-loadSprite('mario', 'NpJDV9J.png')
-loadSprite('flower', 'uaUm9sN.png')
-loadSprite('mushroom', '0wMd92p.png')
-loadSprite('enemy', 'KPO3fR9.png')
-loadSprite('brick', 'pogC9x5.png')
-loadSprite('blue-brick', '3e5YRQd.png')
-loadSprite('block', 'M6rwarW.png')
-loadSprite('surprise', 'gesQ1KP.png')
-loadSprite('coin-surprise', 'gesQ1KP.png')
-loadSprite('unboxed', 'bdrLpi6.png')
-loadSprite('coin', 'wbKxhcd.png')
-loadSprite('pipe-top-left', 'ReTPiWY.png')
-loadSprite('pipe-top-right', 'hj2GK4n.png')
-loadSprite('pipe-bottom-left', 'c1cYSbt.png')
-loadSprite('pipe-bottom-right', 'nqQ79eI.png')
-loadSprite('peach', 'U9uPPhu.png')
-loadSprite('happy-end', 'rmGzaBF.png')
-loadSprite('blue-ground', 'fVscIbn.png')
-loadSprite('blue-enemy', 'SvV4ueD.png')
-loadSprite('blue-unboxed', 'RMqCc1G.png')
-loadSprite('blue-box', 'gqVoI2b.png')
-loadSprite('flower', 'uaUm9sN.png')
-loadSprite('castle', '7hkEkaD.png')
-loadSprite('boss', 'Kxm84mC.png')
+loadSprite('mario', 'mario.png')
+loadSprite('flower', 'flower.png')
+loadSprite('mushroom', 'mushroom.png')
+loadSprite('enemy', 'red-enemy.png')
+loadSprite('brick', 'orange-brick.png')
+loadSprite('blue-brick', 'blue-brick.png')
+loadSprite('block', 'red-ground.png')
+loadSprite('surprise', 'red-surprise.png')
+loadSprite('coin-surprise', 'red-surprise.png')
+loadSprite('unboxed', 'red-unboxed.png')
+loadSprite('coin', 'coin.png')
+loadSprite('pipe-top-left', 'pipe-top-left.png')
+loadSprite('pipe-top-right', 'pipe-top-right.png')
+loadSprite('pipe-bottom-left', 'pipe-bottom-left.png')
+loadSprite('pipe-bottom-right', 'pipe-bottom-right.png')
+loadSprite('peach', 'peach.png')
+loadSprite('happy-end', 'happy-end.png')
+loadSprite('blue-ground', 'blue-ground.png')
+loadSprite('blue-enemy', 'blue-enemy.png')
+loadSprite('blue-surprise', 'blue-surprise.png')
+loadSprite('blue-box', 'blue-box.png')
+loadSprite('castle', 'castle.png')
+loadSprite('boss', 'boss.png')
 
 scene("game", ( { level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
@@ -146,7 +145,7 @@ scene("game", ( { level, score }) => {
     '-': [sprite('brick'), solid()],
     '|': [sprite('blue-brick'), solid(), scale(0.8)],
     '+': [sprite('blue-box'), solid(), scale(0.5)],
-    '!': [sprite('blue-unboxed'), solid(), scale(0.5), 'coin-surprise'],
+    '!': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
     '"': [sprite('blue-enemy'), solid(), scale(0.5), body(), 'enemy'],
     'X': [sprite('castle'), solid(), scale(0.45), 'castle'],
     'B': [sprite('boss'), solid(), scale(0.1077), 'boss', body()]
@@ -189,14 +188,14 @@ scene("game", ( { level, score }) => {
         return isBig
       },
       makeSmall() {
-        this.scale = vec2(0.06)
-        JUMP_SPEED = 320
+        this.scale = vec2(0.3)
+        JUMP_SPEED = 330
         PLAYER_SPEED = 130
         timer = 0
         isBig = false
       },
       makeBig(time) {
-        this.scale = vec2(0.1)
+        this.scale = vec2(0.5)
         JUMP_SPEED = 450
         PLAYER_SPEED = 250
         timer = time
@@ -207,7 +206,7 @@ scene("game", ( { level, score }) => {
 
   const player = add([
     sprite('mario'),
-    scale(0.06), 
+    scale(0.3), 
     solid(), 
     pos(60, 0),
     body(),
@@ -321,9 +320,9 @@ scene('lose', ({score}) => {
 })
 
 scene('win', ({score}) => {
-  add([sprite('happy-end'), origin('center'), pos(width()/2, 170)])
-  add([text('Congratulations!', 16), origin('center'), pos(width()/2, 290)])
-  add([text('Thanks to you Mario and Peach can now have their happily ever after.', 13), origin('center'), pos(width()/2, 320)])
+  add([sprite('happy-end'), scale(0.5), origin('center'), pos(width()/2, 170)])
+  add([text('Congratulations!', 16), origin('center'), pos(width()/2, 310)])
+  add([text('Thanks to you Mario and Peach can now have their happily ever after.', 13), origin('center'), pos(width()/2, 340)])
 })
 
 start("game", { 
